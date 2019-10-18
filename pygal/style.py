@@ -71,6 +71,8 @@ class Style(object):
     stroke_opacity_hover = '.9'
     stroke_width_hover = '4'
 
+    stroke_outline_color = 'default'
+
     dot_opacity = '1'
 
     transition = '150ms'
@@ -122,12 +124,17 @@ class Style(object):
 
         def color(tupl):
             """Make a color css"""
+
+            outline_color = self.stroke_outline_color
+            if (outline_color == 'default'):
+                outline_color = tupl[1]
+
             return ((
                 '%s.color-{0}, %s.color-{0} a:visited {{\n'
-                '  stroke: {1};\n'
+                '  stroke: {2};\n'
                 '  fill: {1};\n'
                 '}}\n'
-            ) % (prefix, prefix)).format(*tupl)
+            ) % (prefix, prefix)).format(*tupl, outline_color)
 
         def value_color(tupl):
             """Make a value color css"""
